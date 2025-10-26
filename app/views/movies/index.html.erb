@@ -1,16 +1,23 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Movies" %>
-
-<h1>Movies</h1>
-
-<div id="movies">
+<section class="movies">
   <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
+    <div class="movie">
+      <h2 class="movieTitle"><%= link_to movie.title, movie_path(movie) %></h2>
+      <p><strong>Diretor:</strong> <%= movie.director %></p>
+      <p><strong>Ano:</strong> <%= movie.release_year %></p>
+      <p><strong>Duração:</strong> <%= movie.duration %> minutos</p>
+      <p><strong>Categorias:</strong> <%= movie.categories.map(&:name).join(", ") %></p>
+      <p class="truncateContent"><%= truncate(movie.synopsis, length: 150) %></p>
+      <p class="readMore"><%= link_to 'VER DETALHES...', movie_path(movie) %></p>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New movie", new_movie_path %>
+  <div class="pagination">
+    <%= paginate @movies %>
+  </div>
+</section>
+
+<% if user_signed_in? %>
+  <div class="newMovie">
+    <%= link_to "Novo Filme", new_movie_path, class: "btn btn-primary" %>
+  </div>
+<% end %>

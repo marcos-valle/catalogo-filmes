@@ -3,8 +3,50 @@
 <%= render @movie %>
 
 <div>
-  <%= link_to "Edit this movie", edit_movie_path(@movie) %> |
-  <%= link_to "Back to movies", movies_path %>
+  <% if user_signed_in? && current_user == @movie.user %>
+    <%= link_to "Editar", edit_movie_path(@movie), class: "btn btn-warning" %>
+    <%= button_to "Excluir", movie_path(@movie), method: :delete, form: { onsubmit: "return confirm('Tem certeza que deseja excluir este filme?');" }, class: "btn btn-danger" %>
+  <% end %>
 
-  <%= button_to "Destroy this movie", @movie, method: :delete %>
+  <%= link_to "Voltar para filmes", movies_path %>
+
+  <h3>Deixe seu comentário</h3>
+
+  <%= form_with(model: [@movie, Comment.new], local: true) do |form| %>
+    <% unless user_signed_in? %>
+      <div>
+        <%= form.label :name, "Seu nome" %><br>
+        <%= form.text_field :name, placeholder: "Digite seu nome" %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :content, "Comentário" %><br>
+      <%= form.text_area :content, placeholder: "Escreva seu comentário aqui..." %>
+    </div>
+
+    <div>
+      <%= form.submit "Enviar comentário" %>
+    </div>
+  <% end %>
+
+  <h2>Comentários</h2>
+
+  <% if @movie.comments.any? %>
+    <ul class="comments-list">
+      <% @movie.comments.order(created_at: :desc).each do |comment| %>
+        <li class="comment-item">
+          <p>
+            <strong>
+              <%= comment.user&.name || comment.name %>:
+            </strong>
+          </p>
+          <p><%= comment.content %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Seja o primeiro a comentar!</p>
+  <% end %>
+
 </div>

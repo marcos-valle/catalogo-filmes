@@ -36,10 +36,12 @@
     <%= form.text_field :director %>
   </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
+  <% if user_signed_in? %>
+      <div>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :username, value: current_user.username %>
+      </div>
+  <% end %>
 
   <div>
     <%= form.submit %>

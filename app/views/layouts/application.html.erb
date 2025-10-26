@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Catalogo Filmes" %></title>
+    <title><%= content_for(:title) || "Catálogo Filmes" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
 
     <%= yield :head %>
 
@@ -19,28 +20,28 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-100 text-gray-900">
-  <nav class="p-4 bg-gray-800 text-white flex justify-between">
-    <h1 class="text-xl font-semibold">🎬 Catálogo de Filmes</h1>
-
-    <div>
-      <% if user_signed_in? %>
-        <%= link_to "Novo Filme", new_movie_path, class: "mr-4" %>
-        <%= link_to "Editar Perfil", edit_user_registration_path, class: "mr-4" %>
-        <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "text-red-400" %>
-      <% else %>
-        <%= link_to "Entrar", new_user_session_path, class: "mr-4" %>
-        <%= link_to "Cadastrar", new_user_registration_path %>
-      <% end %>
-    </div>
-  </nav>
-
-  <div class="container mx-auto p-6">
+  <body>
+    <header>
+      <div class= "topBar" >
+        <div class= "topBar_container">
+          <ul class= "topBar_list">
+            <% if user_signed_in? %>
+              <p>Olá, <%= "#{current_user.name}" %>!</p>
+              <li> <%= link_to "Home", root_path %> </li>
+              <li> <%= button_to "Sair da conta", destroy_user_session_path, method: :delete, data: {confirm: "Tem certeza?"}%> </li>
+              <li> <%= link_to "Editar conta", edit_user_registration_path %> </li>
+            <% else %>
+              <li> <%= link_to "Home", root_path %> </li>
+              <li> <%= link_to "Entrar", new_user_session_path %> </li>
+              <li> <%= link_to "Cadastrar", new_user_registration_path %> </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </header>
     <%= yield %>
-  </div>
-</body>
+  </body>
 
 </html>

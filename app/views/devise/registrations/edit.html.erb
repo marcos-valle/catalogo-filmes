@@ -1,0 +1,48 @@
+<section class="sessionSection">
+  <div class= "errorMsg">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+  </div>
+  
+  <h2>Edite a sua conta</h2>
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"e-mail" %>
+    </div>
+    
+    <div class="field">
+      <%= f.text_field :name, placeholder: "Nome" %>
+    </div>
+
+    <div class="field">
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", placeholder:"username" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field">
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "Senha (deixe em branco para não alterar)" %>
+    </div>
+
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Repita a nova senha" %>
+    </div>
+
+    <div class="field">
+      <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "Senha atual" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Atualizar conta" %>
+    </div>
+  <% end %>
+
+
+  <div class="notSatisfy">
+    <p>Não está satisfeito? </p>
+    <%= button_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Tem certeza?", turbo_confirm: "Tem certeza?" }, method: :delete %>
+  </div>
+
+  <%= link_to "Voltar", :back %>
+</section>
