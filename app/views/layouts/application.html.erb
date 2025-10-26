@@ -19,26 +19,24 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
   <body>
-    <header>
-      <div class= "topBar" >
-        <div class= "topBar_container">
-          <ul class= "topBar_list">
-            <% if user_signed_in? %>
-              <p>Olá, <%= "#{current_user.name}" %>!</p>
-              <li> <%= link_to "Home", root_path %> </li>
-              <li> <%= button_to "Sair da conta", destroy_user_session_path, method: :delete, data: {confirm: "Tem certeza?"}%> </li>
-              <li> <%= link_to "Editar conta", edit_user_registration_path %> </li>
-            <% else %>
-              <li> <%= link_to "Home", root_path %> </li>
-              <li> <%= link_to "Entrar", new_user_session_path %> </li>
-              <li> <%= link_to "Cadastrar", new_user_registration_path %> </li>
-            <% end %>
-          </ul>
-        </div>
+    <header class="topBar">
+      <div class= "topBar_container">
+        <ul class= "topBar_list">
+          <% if user_signed_in? %>
+            <p>Olá, <%= "#{current_user.name}" %>!</p>
+            <li> <%= link_to "Home", root_path %> </li>
+            <li> <%= button_to "Sair da conta", destroy_user_session_path, method: :delete, data: {confirm: "Tem certeza?"}%> </li>
+            <li> <%= link_to "Editar conta", edit_user_registration_path %> </li>
+          <% else %>
+            <li> <%= link_to "Home", root_path %> </li>
+            <li> <%= link_to "Entrar", new_user_session_path %> </li>
+            <li> <%= link_to "Cadastrar", new_user_registration_path %> </li>
+          <% end %>
+        </ul>
       </div>
     </header>
     <%= yield %>
