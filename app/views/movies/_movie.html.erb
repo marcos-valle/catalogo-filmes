@@ -1,31 +1,32 @@
 <div id="<%= dom_id movie %>">
-  <p>
-    <strong>Title:</strong>
-    <%= movie.title %>
-  </p>
+  <% if @movie.poster.attached? %>
+      <%= image_tag @movie.poster.variant(resize_to_limit: [400, 400]) %>
+  <% else %>
+    <strong><%= movie.title %></strong>
+  <% end %>
 
   <p>
-    <strong>Synopsis:</strong>
+    <strong>Sinopse:</strong>
     <%= movie.synopsis %>
   </p>
 
   <p>
-    <strong>Release year:</strong>
+    <strong>Ano de Lançamento:</strong>
     <%= movie.release_year %>
   </p>
 
   <p>
-    <strong>Duration:</strong>
+    <strong>Duração:</strong>
     <%= movie.duration %>
   </p>
 
   <p>
-    <strong>Director:</strong>
+    <strong>Diretor:</strong>
     <%= movie.director %>
   </p>
 
   <p>
-    <strong>User:</strong>
+    <strong>Usuário:</strong>
     <%= movie.user.username %>
   </p>
 

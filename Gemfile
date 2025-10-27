@@ -67,3 +67,5 @@ gem "dotenv-rails", "~> 3.1", :groups => [:development, :test]
 gem "devise", "~> 4.9"
 
 gem "kaminari", "~> 1.2"
+
+gem 'image_processing', '~> 1.2'

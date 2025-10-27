@@ -3,22 +3,26 @@
 <section class="movies">
   <% @movies.each do |movie| %>
     <main class="movie">
-      <h2 class="movieTitle"><%= link_to movie.title, movie_path(movie) %></h2>
+      <% if movie.poster.attached? %>
+        <%= image_tag movie.poster.variant(resize_to_limit: [400, 400]) %>
+      <% else %>
+        <strong><%= movie.title %></strong>
+      <% end %>
       <div class="movieFooter">
         <p><strong>Diretor:</strong> <%= movie.director %></p>
         <p><strong>Ano:</strong> <%= movie.release_year %></p>
         <p><strong>Duração:</strong> <%= movie.duration %> minutos</p>
         <p><strong>Categorias:</strong> <%= movie.categories.map(&:name).join(", ") %></p>
-
       </div>
       <p class="readMore"><%= link_to 'VER DETALHES', movie_path(movie) %></p>
     </main>
   <% end %>
 
-  <div class="pagination">
-    <%= paginate @movies %>
-  </div>
 </section>
+
+<div class="pagination">
+  <%= paginate @movies %>
+</div>
 
 <% if user_signed_in? %>
   <div class="newMovie">
