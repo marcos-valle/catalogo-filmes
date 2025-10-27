@@ -1,14 +1,18 @@
+<h1 class="pageTitle">Catálogo</h1>
+
 <section class="movies">
   <% @movies.each do |movie| %>
-    <div class="movie">
+    <main class="movie">
       <h2 class="movieTitle"><%= link_to movie.title, movie_path(movie) %></h2>
-      <p><strong>Diretor:</strong> <%= movie.director %></p>
-      <p><strong>Ano:</strong> <%= movie.release_year %></p>
-      <p><strong>Duração:</strong> <%= movie.duration %> minutos</p>
-      <p><strong>Categorias:</strong> <%= movie.categories.map(&:name).join(", ") %></p>
-      <p class="truncateContent"><%= truncate(movie.synopsis, length: 150) %></p>
-      <p class="readMore"><%= link_to 'VER DETALHES...', movie_path(movie) %></p>
-    </div>
+      <div class="movieFooter">
+        <p><strong>Diretor:</strong> <%= movie.director %></p>
+        <p><strong>Ano:</strong> <%= movie.release_year %></p>
+        <p><strong>Duração:</strong> <%= movie.duration %> minutos</p>
+        <p><strong>Categorias:</strong> <%= movie.categories.map(&:name).join(", ") %></p>
+
+      </div>
+      <p class="readMore"><%= link_to 'VER DETALHES', movie_path(movie) %></p>
+    </main>
   <% end %>
 
   <div class="pagination">
